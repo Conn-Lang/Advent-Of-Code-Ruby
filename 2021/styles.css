@@ -1,0 +1,15 @@
+em.star {
+    color: #ffff66;
+    font-style: normal;
+    text-shadow: 0 0 5px #ffff66;
+}
+
+body {
+    color: white;
+    background-color: black;
+}
+
+code ::before {
+    border: grey;
+    border-style: solid;
+}
