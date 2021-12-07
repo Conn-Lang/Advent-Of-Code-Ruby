@@ -1,5 +1,5 @@
 file = File.read("../inputs/_testing.in").split("\n")
-# file = File.read("../inputs/day4.in").split("\n")
+file = File.read("../inputs/day4.in").split("\n")
 
 draws = file.shift.split(",").map(&:to_i)
 boards = file.each_slice(6).map do |b|
@@ -37,4 +37,4 @@ draws.each do |draw|
   end
 
 p result[0]
-p result[result.length() - 1]
+p result[-1]
