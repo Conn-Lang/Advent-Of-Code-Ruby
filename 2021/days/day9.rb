@@ -1,5 +1,5 @@
 input = File.read('../inputs/_testing.in').split("\n").map{ |line| line.chars.map(&:to_i) }
-input = File.read('../inputs/day9.in').split("\n").map{ |line| line.chars.map(&:to_i) }
+# input = File.read('../inputs/day9.in').split("\n").map{ |line| line.chars.map(&:to_i) }
 
 # inputY = inputX.transpose
 # input.each do |line|
@@ -13,7 +13,8 @@ input = File.read('../inputs/day9.in').split("\n").map{ |line| line.chars.map(&:
 h = input.length
 w = input[0].length
 part1 = []
-point =  lambda(y, x) do
+
+point =  lambda do |y, x|
   return 999 if y >= h || x >= w
 
   return 999 if y.negative? || x.negative?
@@ -42,3 +43,33 @@ p part1.sum
 #     end
 # end
 # 1574
+
+visited = {}
+part2 = []
+fill = lambda do |y, x|
+  basin = {size:0}
+  part2 << basin
+  traverse = lambda do |k, j|
+    unless point[k, j] < 9
+      return
+    end
+    if visited[[k, j]]
+      return
+    end
+    visited[[k, j]] = basin
+    basin[:size] += 1
+    traverse[k-1, j]
+    traverse[k+1, j]
+    traverse[k, j-1]
+    traverse[k, j+1]
+  end
+  traverse[y, x]
+end
+
+(0...h).each do |y|
+  (0...w).each do |x|
+    fill[y, x]
+  end
+end
+visited.each {p _1}
+p part2.map { _1[ :size] }.sort.last(3).inject(&:*)
